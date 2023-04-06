@@ -36,3 +36,12 @@ input:focus-visible{
 .center-element{
   margin-top: var(--nav-height);
 }
+.bg-site{
+  background-image: url(../image/iron_bg.jpg);
+}
+.slideshow-container {
+  width: 300px; /* chiều rộng cố định của slideshow */
+}
+.bg-about{
+  background-image: url(../image/about_bg.jpg);
+}

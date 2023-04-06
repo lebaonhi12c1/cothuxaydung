@@ -1,29 +1,35 @@
+import { Inter } from "@next/font/google";
+import DefaultLayout from "./../layout/DefaultLayout";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { getAuth } from "firebase/auth";
+import Slideshow from "../components/slideshow";
+import Navbar from "@/components/Navbar";
+import Introduce from "@/components/introduce";
+import Prtfolio from "@/components/Prtfolio";
+import Contact from "@/components/Contact";
 
-import { Inter } from '@next/font/google'
-import DefaultLayout from './../layout/DefaultLayout';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { getAuth } from 'firebase/auth';
-
-const inter = Inter({ subsets: ['latin'] })
-
+const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
-  const router= useRouter()
-  const auth = getAuth()
-  const handleLogout = async()=>{
-    await  auth.signOut()
-    router.push('/login')
-  }
+  const router = useRouter();
+  const auth = getAuth();
+  const handleLogout = async () => {
+    await auth.signOut();
+    router.push("/login");
+  };
   return (
-    <>
-      <main className='container mx-auto'>
-        <div title='homepage'>home</div>
-        <button title='logout' className="text-primary p-2 rounded-sm active:scale-90 bg-four" onClick={handleLogout}>
-          Logout
-        </button>
+    <div className="z-10">
+      <Slideshow></Slideshow>
+      <main className="container mx-auto">
+        <div title="Prtflio" className="">
+        <Prtfolio/>
+        </div>
       </main>
-    </>
-  )
+      <Introduce />
+      <Contact/>
+     
+    </div>
+  );
 }
 
-Home.getLayout = DefaultLayout
+Home.getLayout = DefaultLayout;

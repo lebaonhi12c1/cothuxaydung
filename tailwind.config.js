@@ -17,6 +17,11 @@ module.exports = {
         'four': '#1A6ED8'
       }
     },
+    // backgroundImage: {
+    //   site: "url('./image/bg_iron.jpg')",
+    // },
   },
-  plugins: [],
-}
+  plugins: [
+   
+  ],
+};

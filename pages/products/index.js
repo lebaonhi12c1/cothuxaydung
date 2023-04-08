@@ -151,6 +151,10 @@ function Products({ products = sampleProducts }) {
   );
 }
 
-Products.getLayout = DefaultLayout;
-
-export default Products;
+export default function WithDefaultLayout(props) {
+  return (
+    <DefaultLayout>
+      <Products {...props} />
+    </DefaultLayout>
+  );
+}

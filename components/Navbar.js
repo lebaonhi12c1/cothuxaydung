@@ -96,12 +96,12 @@ function Navbar(props) {
           </div>
           <div className="flex flex-col justify-center ">
             <div className="border border-solid border-orange-600 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-              <button>Giới thiệu</button>
+            <Link className="text-white  hover:text-black" href="/contact"> <button>Giới thiệu</button></Link>
             </div>
             <div className="border border-solid border-orange-600 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-              <Link href="">
-              <button>Sản phẩm</button>
-              </Link>
+            <Link className="text-white  hover:text-black" href="/products">
+          <button >Sản phẩm</button>
+          </Link>
             </div>
             <div className="border border-solid border-orange-600 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
               <button>Chất lượng K.P</button>

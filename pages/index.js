@@ -1,6 +1,5 @@
 import { Inter } from "@next/font/google";
-import DefaultLayout from "./../layout/DefaultLayout";
-import { useEffect } from "react";
+import DefaultLayout from "../layout/DefaultLayout";
 import { useRouter } from "next/router";
 import { getAuth } from "firebase/auth";
 import Slideshow from "../components/slideshow";

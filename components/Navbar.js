@@ -6,6 +6,8 @@ import {
   IoMenuSharp,
 } from "react-icons/io5";
 import SearchModal from "./SearchModal";
+import Link from 'next/link';
+import product from "@/pages/products/index"
 
 function Navbar(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,9 +29,12 @@ function Navbar(props) {
     <div className="bg-about bg-cover">
       <nav className="flex items-center justify-between p-4 border border-black bg-black bg-opacity-80">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
+          <Link href="/">
           <button className="border border-solid border-orange-600 bg-black bg-opacity-80 p-4 text-white mr-2 md:mr-20 md:ml-11">
             K.P Construction
           </button>
+          </Link>
+          
         </div>
         <div className="md:hidden">
           <button onClick={toggleMobileMenu} className="text-orange-500">
@@ -42,10 +47,14 @@ function Navbar(props) {
           }`}
         >
           <div className="border border-solid border-orange-600 border-r md:border-r-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-            <button>Giới thiệu</button>
+            <Link className="text-white  hover:text-black" href="/contact"> <button>Giới thiệu</button></Link>
+           
           </div>
-          <div className="border border-solid border-orange-600 border-r-0 md:border-l-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-            <button>Sản phẩm</button>
+          <div className="border border-solid border-orange-600 border-r-0 md:border-l-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 active:bg-orange-600 active:bg-opacity-80 transition duration-150">        
+          <Link className="text-white  hover:text-black" href="/products">
+          <button >Sản phẩm</button>
+          </Link>
+            
           </div>
           <div className="border border-solid border-orange-600 border-r-0 md:border-l-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
             <button>Chất lượng K.P</button>
@@ -90,7 +99,9 @@ function Navbar(props) {
               <button>Giới thiệu</button>
             </div>
             <div className="border border-solid border-orange-600 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
+              <Link href="">
               <button>Sản phẩm</button>
+              </Link>
             </div>
             <div className="border border-solid border-orange-600 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
               <button>Chất lượng K.P</button>

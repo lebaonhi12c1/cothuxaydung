@@ -7,34 +7,44 @@ import Link from "next/link";
 
 const sampleProducts = [
   {
+    slug: "san-pham-a",
     name: "Sản phẩm A",
     category: "tôn mạ",
     price: 50,
     image: bgIron,
   },
   {
+    slug: "san-pham-b",
     name: "Sản phẩm B",
     category: "ống thép",
     price: 150,
     image: Ironbg,
   },
   {
+    slug: "san-pham-c",
     name: "Sản phẩm C",
     category: "gang",
     price: 550,
     image: bgIron,
   },
   {
+    slug: "san-pham-d",
     name: "Sản phẩm D",
     category: "điện máy",
     price: 1001,
     image: Ironbg,
   },
 ];
+
 function Products({ products = sampleProducts }) {
   const [category, setCategory] = useState("all");
   const [price, setPrice] = useState("");
   const categories = ["all", "tôn mạ", "ống thép", "gang", "điện máy"];
+  const addToCart = (product) => {
+  console.log("Thêm sản phẩm vào giỏ hàng:", product);
+    // Thêm logic thêm sản phẩm vào giỏ hàng ở đây
+    alert("Sản phẩm đã được thêm vào giỏ hàng!");
+  };
 
   const handleCategoryChange = (category) => {
     setCategory(category);
@@ -112,33 +122,40 @@ function Products({ products = sampleProducts }) {
           </button>
         </div>
       </div>
-      <Link href="/list">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div
                 key={product.name}
                 className="border border-gray-400 rounded-lg shadow-sm p-4 hover:shadow-2xl transition duration-150"
               >
-                <div className="relative overflow-hidden h-48 w-full mb-4">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    layout="fill"
-                    objectFit="cover"
-                    className="absolute h-full w-full rounded-t-lg transform hover:scale-110 transition duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h2 className="text-lg font-bold mb-2">{product.name}</h2>
-                  <span className="text-sm font-light block">
-                    {product.category}
-                  </span>
-                  <span className="text-lg font-bold block">
-                    {product.price} đồng
-                  </span>
-                </div>
-              </div>
+               <Link href={`/product-details/${product.slug}`}>
+  
+    <div className="relative overflow-hidden h-48 w-full mb-4">
+      <Image
+        src={product.image}
+        alt={product.name}
+        layout="fill"
+        objectFit="cover"
+        className="absolute h-full w-full rounded-t-lg transform hover:scale-110 transition duration-300"
+      />
+    </div>
+    <div className="p-4 flex whitespace-nowrap">
+      <div>
+        <h2 className="text-lg font-bold whitespace-nowrap hover:text-or  mb-2">{product.name}</h2>
+        <span className="text-sm font-light block">
+          {product.category}
+        </span>
+      </div>
+      <div className="pl-20 ml-10 ">
+        <span className="text-lg font-bold text-orange-600 block">
+          {product.price} đồng
+        </span>
+      </div>
+    </div>
+  
+</Link>
+              </div> 
             ))
           ) : (
             <p className="text-center text-lg font-semibold">
@@ -146,12 +163,14 @@ function Products({ products = sampleProducts }) {
             </p>
           )}
         </div>
-      </Link>
     </div>
   );
 }
 
 export default function WithDefaultLayout(props) {
-  return <DefaultLayout><Products {...props} /></DefaultLayout>;
+  return (
+    <DefaultLayout>
+      <Products {...props} />
+    </DefaultLayout>
+  );
 }
-

@@ -45,3 +45,30 @@ input:focus-visible{
 .bg-about{
   background-image: url(../image/about_bg.jpg);
 }
+.related-products {
+  width: 1200px;
+  height: 369px;
+  overflow: hidden;
+}
+
+.product-card {
+  width: 230px;
+  height: 340px;
+  transition: transform 0.3s;
+}
+
+.product-image {
+  width: 170px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.slick-slide {
+  margin-right: 16px;
+}

@@ -1,15 +1,22 @@
-import '@/styles/globals.css'
-import { getInitialFirebase } from '@/firebase/config';
+import "@/styles/globals.css";
+import { getInitialFirebase } from "@/firebase/config";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { CartProvider } from "../components/CartContext";
 
 export default function App({ Component, pageProps }) {
-  getInitialFirebase()
-  if(Component.getLayout){
+  getInitialFirebase();
+  if (Component.getLayout) {
     return (
-      <Component.getLayout>
-        <Component {...pageProps} />
-      </Component.getLayout>
-    )
+      <CartProvider>
+        <Component.getLayout>
+          <Component {...pageProps} />
+        </Component.getLayout>
+      </CartProvider>
+    );
   }
-  return <Component {...pageProps} />
+  return (
+    <CartProvider>
+      <Component {...pageProps} />
+    </CartProvider>
+  );
 }

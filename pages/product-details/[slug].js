@@ -8,6 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RelatedProducts from "@/components/ProductSlider";
+import { useCart } from "@/components/CartContext"; // Thêm dòng này
 
 const sampleProducts = [
   {
@@ -41,15 +42,26 @@ const sampleProducts = [
 ];
 
 const ProductDetails = () => {
-  
   const router = useRouter();
   const { slug } = router.query;
   const product = sampleProducts.find((p) => p.slug === slug);
   const [mainImage, setMainImage] = useState(product ? product.image : "");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { addToCart } = useCart();
+  const [showNotification, setShowNotification] = useState(false);
+
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % sampleProducts.length);
@@ -70,7 +82,7 @@ const ProductDetails = () => {
     <DefaultLayout>
       <div className="container mx-auto p-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
+          <div>
             <Image
               src={mainImage}
               alt={product.name}
@@ -95,27 +107,43 @@ const ProductDetails = () => {
                 </div>
               ))}
             </div>
-          </div>    
+          </div>
           <div>
             <div>
-            <h1 className="text-2xl font-bold mb-6">{product.name}</h1>
-            <table className="w-min border-collapse border border-gray-300 mb-6">
+              <h1 className="text-2xl font-bold mb-6">{product.name}</h1>
+              <table className="w-min border-collapse border border-gray-300 mb-6">
                 <tbody>
                   <tr>
-                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2 ">Kích thước tiêu chuẩn</th>
-                    <td className="border border-gray-300 px-4 py-2">Thông tin chi tiết</td>
+                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2 ">
+                      Kích thước tiêu chuẩn
+                    </th>
+                    <td className="border border-gray-300 px-4 py-2">
+                      Thông tin chi tiết
+                    </td>
                   </tr>
                   <tr>
-                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2">Độ dày</th>
-                    <td className="border border-gray-300 px-4 py-2">Thông tin chi tiết</td>
+                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2">
+                      Độ dày
+                    </th>
+                    <td className="border border-gray-300 px-4 py-2">
+                      Thông tin chi tiết
+                    </td>
                   </tr>
                   <tr>
-                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2">Tỉ lệ carbon</th>
-                    <td className="border border-gray-300 px-4 py-2">Thông tin chi tiết</td>
+                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2">
+                      Tỉ lệ carbon
+                    </th>
+                    <td className="border border-gray-300 px-4 py-2">
+                      Thông tin chi tiết
+                    </td>
                   </tr>
                   <tr>
-                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2">Ứng dụng</th>
-                    <td className="border border-gray-300 px-4 py-2">Thông tin chi tiết</td>
+                    <th className="text-left whitespace-nowrap border border-gray-300 px-4 py-2">
+                      Ứng dụng
+                    </th>
+                    <td className="border border-gray-300 px-4 py-2">
+                      Thông tin chi tiết
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -124,8 +152,10 @@ const ProductDetails = () => {
                   <strong>Danh mục:</strong> {product.category}
                 </li>
                 <li>
-                <   div className="text-red-600 text-2xl">{product.price.toLocaleString("vi-VN") } đồng</div>         
-                 </li>
+                  <div className="text-red-600 text-2xl">
+                    {product.price.toLocaleString("vi-VN")} đồng
+                  </div>
+                </li>
               </ul>
             </div>
             <div>
@@ -133,22 +163,35 @@ const ProductDetails = () => {
                 Mua ngay
               </button>{" "}
               <br />
-              <button className="bg-blue-500 text-white py-1 px-2 rounded mt-2">
-                Thêm vào giỏ hàng
-              </button>
+              {showNotification && (
+                <div className="fixed bottom-0 right-0 m-4 p-4 bg-green-500 text-white rounded">
+                  Sản phẩm đã được thêm vào giỏ hàng thành công!
+                </div>
+              )}
+              <div className="mx-auto ">
+                {/* ... */}
+                <button
+                  className="bg-blue-500 text-white py-1 px-2 rounded mt-2"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Thêm vào giỏ hàng
+                </button>
+                {/* ... */}
+              </div>
             </div>
           </div>
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-2">Mô tả sản phẩm:</h2>
             <p>
-              Nội dung mô tả sản phẩm sẽ được thêm vào đây. Hãy cung cấp thông tin chi tiết về sản phẩm, các tính năng đặc biệt và lợi ích mà sản phẩm mang lại cho người dùng.
+              Nội dung mô tả sản phẩm sẽ được thêm vào đây. Hãy cung cấp thông
+              tin chi tiết về sản phẩm, các tính năng đặc biệt và lợi ích mà sản
+              phẩm mang lại cho người dùng.
             </p>
           </div>
-          
         </div>
-        <RelatedProducts products={sampleProducts} ></RelatedProducts>
-      </div>   
-  </DefaultLayout>
+        <RelatedProducts products={sampleProducts}></RelatedProducts>
+      </div>
+    </DefaultLayout>
   );
 };
 

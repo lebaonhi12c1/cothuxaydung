@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import { useCart } from "@/components/CartContext";
 import Image from "next/image";
+import Link from "next/link";
 
 Modal.setAppElement("#__next");
 
@@ -92,9 +93,12 @@ function CartModal({ isOpen, onRequestClose }) {
           >
             Tiếp tục mua hàng
           </button>
-          <button className="w-full bg-orange-500 hover:bg-green-600 text-white font-semibold py-2 rounded mt-4">
+          <Link href="/pay" className="">
+          <button className="w-full bg-orange-500 hover:bg-green-600 text-white font-semibold py-2 rounded mt-4" >
             Thanh toán
           </button>
+          </Link>
+         
         </div>
       </div>
     </Modal>

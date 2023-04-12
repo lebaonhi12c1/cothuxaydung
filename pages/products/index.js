@@ -82,7 +82,7 @@ function Products({ products = sampleProducts }) {
   }, [category, price, products]);
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto p-10">
       <h1 className="text-2xl font-bold mb-6">Danh sách sản phẩm</h1>
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">

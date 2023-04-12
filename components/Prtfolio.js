@@ -21,8 +21,8 @@ function Prtfolio(props) {
   };
 
   return (
-    <div className="p-4 ">
-      <div className="">
+    <div className="p-10 ">
+      <div className="mb-2">
         <button className="bg-transparent border border-black text-black hover:bg-orange-500 font-bold py-2 px-4 rounded-full">
           Danh Mục Sản Phẩm
         </button>
@@ -46,20 +46,21 @@ function Prtfolio(props) {
         <div className=" ">
           <div className="ml-10 ">
             <div className="">
-              <div className="mt-5">
+              <div className="mt-5 mb-20 pb-5">
                 <h1 className="text-5xl font-bold">Projects Preview</h1>
-              </div>
-            </div>
-            <div className="pb-20 ml-2 mt-5 mb-20">
-              <div className="mb-20 pb-10">
-                <span className="flex hover:text-orange-600 underline">
+                <span className="flex hover:text-orange-600 mt-3 ml-1 underline">
                   View More <FaAngleRight className="mt-1 ml-2"></FaAngleRight>
                 </span>
               </div>
             </div>
+            <div className="pb-20 mb-20">
+              <div className="mb-20 pb-10">
+              
+              </div>
+            </div>
           </div>
           <div className="flex  mb-4 overflow-x-auto md:overflow-x-visible">
-            <nav className="flex justify-center border border-black rounded-xl p-4 ml-10 whitespace-nowrap">
+            <nav className="flex justify-center border border-black rounded-xl p-5 ml-10 whitespace-nowrap">
               {products.map((product) => (
                 <button
                   key={product.name}

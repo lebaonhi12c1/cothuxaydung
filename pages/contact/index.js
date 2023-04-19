@@ -329,7 +329,7 @@ export default function AboutUs() {
             </p>
           </div>
           {/* Bản đồ */}
-          <div className="w-full h-64 relative">
+          <div className="w-full h-64 mt-10 relative">
             <iframe
               title="Google Maps"
               className="absolute bottom-10  left-0 w-full h-full border-0"

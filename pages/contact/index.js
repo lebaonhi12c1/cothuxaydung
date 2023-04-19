@@ -20,14 +20,16 @@ export default function AboutUs() {
       </section>
 
       {/* Giới thiệu ngắn gọn */}
-      <section className="container mx-auto bg-white bg-opacity-90 text-center border border-black rounded">
-        <div className="flex flex-wrap m-4 justify-center ">
-          <div className="w-full lg:w-1/2 px-4 border-black border-r-2 ">
-            <h2 className="text-3xl text-black font-bold mb-6">
-              Giới thiệu về chúng tôi
-            </h2>
-
-            <p className="text-lg text-black leading-relaxed">
+      <section
+        className="container mx-auto bg-white bg-opacity-90 text-center border border-black rounded"
+        data-aos="fade-up"
+      >
+        <h2 className="text-3xl mt-2 text-black sm:mt-4 font-bold mb-6">
+          Giới thiệu về chúng tôi
+        </h2>
+        <div className="flex flex-wrap m-4 justify-center">
+          <div className="w-full lg:w-1/2 px-4 ">
+            <p className="text-lg text-black  leading-relaxed">
               Tập đoàn Khải Phát, thành lập từ năm 1968, là một trong những tập
               đoàn hàng đầu tại Việt Nam chuyên cung cấp vật liệu xây dựng chất
               lượng cao cho các công trình dân dụng, công nghiệp và hạ tầng trên
@@ -44,16 +46,15 @@ export default function AboutUs() {
               đến cho khách hàng trải nghiệm mua sắm tiện lợi và đáng tin cậy.
               Đồng thời, tập đoàn cũng không ngừng nâng cao chất lượng dịch vụ,
               áp dụng công nghệ tiên tiến và phát triển kinh doanh trực tuyến,
-              nhằm đáp ứng nhu cầu ngày càng cao của khách hàng trong thời đại
+              nhằm đáp ứng nhu cầu ngày càng cao của khách hàng trong thờời đại
               số hóa. Sứ mệnh của tập đoàn Khải Phát là đồng hành cùng sự phát
               triển bền vững của ngành xây dựng Việt Nam, góp phần xây dựng một
               tương lai tươi sáng cho đất nước.
             </p>
           </div>
-
-          <div className="w-full lg:w-1/2 pt-10 mt-10 pl-10">
+          <div className="w-full lg:w-1/2 mt-4 lg:pl-0">
             <img
-              className="rounded-lg shadow-md mb-4"
+              className="rounded-lg shadow-md mb-4 w-full h-auto object-cover"
               src="https://images.pexels.com/photos/1117452/pexels-photo-1117452.jpeg?auto=compress&cs=tinysrgb&w=600"
               alt="Ảnh minh họa cho Khải Phát"
             />
@@ -179,7 +180,9 @@ export default function AboutUs() {
                 height="180"
               />
 
-              <p>top 10 doanh nghiệp vật liệu uy tín</p>
+              <p className="sm:text-lg text-sm whitespace-normal">
+                top 10 doanh nghiệp vật liệu uy tín
+              </p>
             </div>
             <div className="flex flex-col items-center">
               <img
@@ -193,7 +196,9 @@ export default function AboutUs() {
                 height="180"
               />
               <br />
-              <p>top 500 doanh nghiệp lớn nhất việt nam</p>
+              <p className="sm:text-lg text-sm whitespace-normal">
+                top 500 doanh nghiệp lớn nhất việt nam
+              </p>
             </div>
             <div className="flex flex-col items-center">
               <img
@@ -206,7 +211,9 @@ export default function AboutUs() {
                 width="220"
                 height="180"
               />
-              <p className="mb-5">top 50 công ty niêm yết tốt nhất</p>
+              <p className="sm:text-lg text-sm whitespace-normal">
+                top 50 công ty niêm yết tốt nhất
+              </p>
             </div>
             <div className="flex flex-col whitespace-nowrap items-center">
               <img
@@ -219,7 +226,9 @@ export default function AboutUs() {
                 width="160"
                 height="180"
               />
-              <p>thương hiệu quốc gia</p>
+              <p className="sm:text-lg text-sm whitespace-normal">
+                thương hiệu quốc gia
+              </p>
             </div>
             {/* Thêm các giải thưởng khác tương tự */}
           </div>

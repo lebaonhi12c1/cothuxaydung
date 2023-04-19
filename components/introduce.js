@@ -1,4 +1,5 @@
 import React from "react";
+import Aos from "aos";
 //countup
 import CountUp from "react-countup";
 //intersetion observer hook
@@ -6,6 +7,7 @@ import { InView } from "react-intersection-observer";
 //motion
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+
 
 const MyComponent = () => {
   const [isMounted, setIsMounted] = useState(false);

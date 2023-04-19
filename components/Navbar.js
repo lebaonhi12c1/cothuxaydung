@@ -72,7 +72,8 @@ function Navbar(props) {
             <button>Chất lượng K.P</button>
           </div>
           <div className="border border-solid border-orange-600 bg-opacity-80 border-l-3 p-4 text-black hover:bg-gray-300 hover:text-black bg-orange-500 active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-            <button>Xem Ngay !</button>
+            <Link href="/products"><button>Xem Ngay !</button></Link>
+            
           </div>
           <div className="flex items-center ml-auto">
             <a href="#" className="text-orange-500 m-4">
@@ -80,11 +81,13 @@ function Navbar(props) {
                 <IoSearchSharp className="w-8 h-8"></IoSearchSharp>
               </button>
             </a>
-            <a href="#" className="text-orange-500 m-4">
+
+            <Link href="/user" className="text-orange-500 m-4">
               <button>
                 <IoPerson id="search-btn" className="w-8 h-8"></IoPerson>
               </button>
-            </a>
+            </Link>
+
             <a href="#" className="text-orange-500 m-4 ">
               <button onClick={handleOpenCartModal} className="flex">
                 <IoCartSharp className="w-8 h-8 "></IoCartSharp>
@@ -107,11 +110,11 @@ function Navbar(props) {
                   <IoSearchSharp className="w-8 h-8"></IoSearchSharp>
                 </button>
               </a>
-              <a href="#" className="text-orange-500 m-4">
-                <button>
-                  <IoPerson id="search-btn" className="w-8 h-8"></IoPerson>
-                </button>
-              </a>
+              <Link href="/user" className="text-orange-500 m-4">
+              <button>
+                <IoPerson id="search-btn" className="w-8 h-8"></IoPerson>
+              </button>
+            </Link>
               <a href="#" className="text-orange-500 m-4">
                 <button onClick={handleOpenCartModal}>
                   <IoCartSharp className="w-8 h-8"></IoCartSharp>
@@ -140,7 +143,7 @@ function Navbar(props) {
               <button>Chất lượng K.P</button>
             </div>
             <div className="border border-solid border-orange-600 bg-opacity-80 border-l-3 p-4 text-black hover:bg-gray-300 hover:text-black bg-orange-500 active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-              <button>Xem Ngay !</button>
+            <Link href="/products"><button>Xem Ngay !</button></Link>
             </div>
           </div>
         </div>

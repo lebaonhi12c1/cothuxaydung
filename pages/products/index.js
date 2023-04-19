@@ -34,6 +34,76 @@ const sampleProducts = [
     price: 1001,
     image: Ironbg,
   },
+  {
+    slug: "san-pham-1",
+    name: "Sản phẩm 1",
+    category: "tôn mạ",
+    price: 50,
+    image: bgIron,
+  },
+  {
+    slug: "san-pham-2",
+    name: "Sản phẩm 2",
+    category: "ống thép",
+    price: 150,
+    image: Ironbg,
+  },
+  {
+    slug: "san-pham-3",
+    name: "Sản phẩm 3",
+    category: "gang",
+    price: 550,
+    image: bgIron,
+  },
+  {
+    slug: "san-pham-4",
+    name: "Sản phẩm 4",
+    category: "điện máy",
+    price: 1001,
+    image: Ironbg,
+  },
+  {
+    slug: "san-pham-5",
+    name: "Sản phẩm 5",
+    category: "tôn mạ",
+    price: 50,
+    image: bgIron,
+  },
+  {
+    slug: "san-pham-6",
+    name: "Sản phẩm 6",
+    category: "ống thép",
+    price: 150,
+    image: Ironbg,
+  },
+  {
+    slug: "san-pham-7",
+    name: "Sản phẩm 7",
+    category: "gang",
+    price: 550,
+    image: bgIron,
+  },
+  {
+    slug: "san-pham-8",
+    name: "Sản phẩm 8",
+    category: "điện máy",
+    price: 1001,
+    image: Ironbg,
+  },
+  {
+    slug: "san-pham-9",
+    name: "Sản phẩm 9",
+    category: "gang",
+    price: 550,
+    image: bgIron,
+  },
+  {
+    slug: "san-pham-10",
+    name: "Sản phẩm 10",
+    category: "điện máy",
+    price: 1001,
+    image: Ironbg,
+  },
 ];
 
 function Products({ products = sampleProducts }) {
@@ -122,7 +192,7 @@ function Products({ products = sampleProducts }) {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div
@@ -140,10 +210,10 @@ function Products({ products = sampleProducts }) {
         className="absolute h-full w-full rounded-t-lg transform hover:scale-110 transition duration-300"
       />
     </div>
-    <div className="p-4 flex whitespace-nowrap">
+    <div className="p-4 flex ">
       <div>
         <h2 className="text-lg font-bold whitespace-nowrap hover:text-or  mb-2">{product.name}</h2>
-        <span className="text-sm font-light block">
+        <span className="text-sm whitespace-nowrap font-light block">
           {product.category}
         </span>
       </div>

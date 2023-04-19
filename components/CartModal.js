@@ -87,18 +87,20 @@ function CartModal({ isOpen, onRequestClose }) {
         </div>
 
         <div className="mt-4">
-          <button
-            onClick={onRequestClose}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded"
-          >
-            Tiếp tục mua hàng
-          </button>
-          <Link href="/pay" className="">
-          <button className="w-full bg-orange-500 hover:bg-green-600 text-white font-semibold py-2 rounded mt-4" >
-            Thanh toán
-          </button>
+          <Link href="/products">
+            <button
+              onClick={onRequestClose}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded"
+            >
+              Tiếp tục mua hàng
+            </button>
           </Link>
-         
+
+          <Link href="/pay" className="">
+            <button className="w-full bg-orange-500 hover:bg-green-600 text-white font-semibold py-2 rounded mt-4">
+              Thanh toán
+            </button>
+          </Link>
         </div>
       </div>
     </Modal>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
@@ -7,7 +7,7 @@ export function CartProvider({ children }) {
 
   function addToCart(product) {
     const existingProduct = cart.find((p) => p.slug === product.slug);
-  
+
     if (existingProduct) {
       const updatedCart = cart.map((p) => {
         if (p.slug === product.slug) {
@@ -15,12 +15,41 @@ export function CartProvider({ children }) {
         }
         return p;
       });
-  
-      setCart(updatedCart);
+
+      setCart(updatedCart); 
+      setCart((prevState) => {
+        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+        const existingProductIndex = prevState.findIndex(
+          (item) => item.slug === product.slug
+        );
+    
+        // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm vào giỏ hàng
+        if (existingProductIndex === -1) {
+          return [...prevState, { ...product, quantity: 1 }];
+        }
+    
+        // Nếu sản phẩm đã tồn tại trong giỏ hàng, không thay đổi giỏ hàng
+        return prevState;
+      });
+      console.log("Sản phẩm đã tồn tại, tăng số lượng:", updatedCart);
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
+      console.log("Sản phẩm mới, thêm vào giỏ hàng:", [
+        ...cart,
+        { ...product, quantity: 1 },
+      ]);
     }
   }
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const increaseQuantity = (product) => {
     setCart((prevCart) => {
       const newCart = [...prevCart];
@@ -54,13 +83,15 @@ export function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={{
+    <CartContext.Provider
+      value={{
         cart,
         addToCart,
         increaseQuantity,
         decreaseQuantity,
         removeProduct,
-      }}>
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

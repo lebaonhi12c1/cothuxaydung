@@ -131,39 +131,6 @@ const Slider = () => {
           </div>
         </div>
       </SwiperSlide>
-      {/* <SwiperSlide>
-        <div className="relative h-screen bg-black">
-          <img
-            src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDB8fGNvbnN0cnVjdGlvbiUyMHNpdGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-            alt="Slide 2"
-            className="w-full h-full object-cover inset-0 opacity-50"
-          />
-          <div className="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 text-left">
-            <div className="pb-6">
-              <h1 className="text-3xl md:text-6xl font-bold text-white p-2 md:p-6">
-                Mang đến tương lai chắc chắn <br /> với chất lượng thép hoàn hảo
-              </h1>
-              <h3 className="text-xl md:text-4xl ml-2 md:ml-10 underline text-white">
-                Đối tác đáng tin cậy từ năm 1998{" "}
-              </h3>
-            </div>
-            <div className="flex flex-col md:flex-row items-center md:items-start ml-2 md:ml-10">
-              <button
-                title="product"
-                className="text-primary mr-2 md:mr-4 mb-2 md:mb-0 p-1 md:p-2 border border-black rounded-lg bg-orange-600 hover:text-black"
-              >
-                Xem sản phẩm
-              </button>
-              <button
-                title="contact"
-                className="text-white p-1 md:p-2 active:scale-90 border border-white rounded-lg bg-transparent bg-opacity-80 hover:bg-orange-600 md:ml-4"
-              >
-                Liên hệ
-              </button>
-            </div>
-          </div>
-        </div>
-      </SwiperSlide> */}
     </Swiper>
   );
 };

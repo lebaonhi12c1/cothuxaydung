@@ -6,6 +6,7 @@ import bgIron from "../image/bg_iron.jpg";
 import Ironbg from "../image/iron_bg.jpg";
 import { FaAngleRight } from "react-icons/fa";
 
+
 const products = [
   { name: "Gang", image: bgIron },
   { name: "Tôn mạ", image: Ironbg },
@@ -53,7 +54,9 @@ function Prtfolio(props) {
             </span>
           </div>
           <div className=" md:pb-20  md:mb-20">
-            <div className=" md:mb-20  md:pb-10"></div>
+            <div className=" md:mb-20  md:pb-10">
+              {/* <MorphingAnimation /> */}
+            </div>
           </div>
           <div className="mb-4 overflow-x-scroll md:overflow-x-auto">
             <nav className="flex justify-center border border-black rounded-xl p-3 md:p-5 whitespace-nowrap">

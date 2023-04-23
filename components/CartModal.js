@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { useCart } from "@/components/CartContext";
 import Image from "next/image";
@@ -8,8 +7,9 @@ import Link from "next/link";
 Modal.setAppElement("#__next");
 
 function CartModal({ isOpen, onRequestClose }) {
+  const [activeTab, setActiveTab] = useState("carts");
   const { cart, increaseQuantity, decreaseQuantity, removeProduct } = useCart();
-
+  console.log("User cart:", cart);
   return (
     <Modal
       isOpen={isOpen}
@@ -18,7 +18,7 @@ function CartModal({ isOpen, onRequestClose }) {
       overlayClassName="ReactModal__Overlay"
       contentLabel="Cart Modal"
     >
-      <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+      <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold">Giỏ hàng</h2>
           <button
@@ -42,8 +42,11 @@ function CartModal({ isOpen, onRequestClose }) {
 
         <div className="divide-y divide-gray-200">
           {cart.map((item, index) => (
-            <div key={index} className="flex justify-between items-center py-4">
-              <div className="flex items-center">
+            <div
+              key={index}
+              className="cart-item flex flex-wrap md:flex-nowrap justify-between items-center py-4"
+            >
+              <div className="flex items-center w-full md:w-auto">
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -55,8 +58,10 @@ function CartModal({ isOpen, onRequestClose }) {
                     Đơn giá: {item.price.toLocaleString("vi-VN")} đồng
                   </p>
                 </div>
+
+                <div></div>
               </div>
-              <div className="flex items-center">
+              <div className="cart-item-actions flex items-center justify-center w-full md:w-auto md:mt-0 mt-4">
                 <button
                   onClick={() => decreaseQuantity(item)}
                   className="bg-gray-200 text-gray-800 hover:bg-gray-300 rounded px-2 py-1"
@@ -71,10 +76,10 @@ function CartModal({ isOpen, onRequestClose }) {
                   +
                 </button>
               </div>
-              <div className="text-right">
+              <div className="text-right w-full md:w-auto md:mt-0 mt-4">
                 <span className="text-lg font-semibold">
                   {item.quantity * item.price.toLocaleString("vi-VN")} đồng
-                </span>
+                </span>{" "}
                 <button
                   onClick={() => removeProduct(item)}
                   className="block text-red-500 hover:text-red-700 mt-2"
@@ -85,7 +90,15 @@ function CartModal({ isOpen, onRequestClose }) {
             </div>
           ))}
         </div>
-
+        <div className="text-right mb-4">
+          <p className="text-lg font-semibold">
+            Tổng cộng:{" "}
+            {cart
+              .reduce((total, item) => total + item.quantity * item.price, 0)
+              .toLocaleString("vi-VN")}{" "}
+            đồng
+          </p>
+        </div>
         <div className="mt-4">
           <Link href="/products">
             <button
@@ -101,6 +114,14 @@ function CartModal({ isOpen, onRequestClose }) {
               Thanh toán
             </button>
           </Link>
+
+          {cart.length === 0 && (
+            <div className="text-center py-4">
+              <p className="text-gray-500">
+                Giỏ hàng trống. Hãy thêm sản phẩm vào giỏ hàng!
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </Modal>

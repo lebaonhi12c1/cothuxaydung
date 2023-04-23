@@ -4,9 +4,12 @@ import bgIron from "@/image/bg_iron.jpg";
 import Ironbg from "@/image/iron_bg.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import SearchModal from "@/components/SearchModal";
+import { useRouter } from "next/router";
 
 const sampleProducts = [
   {
+    id: 1,
     slug: "san-pham-a",
     name: "Sản phẩm A",
     category: "tôn mạ",
@@ -14,6 +17,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 2,
     slug: "san-pham-b",
     name: "Sản phẩm B",
     category: "ống thép",
@@ -21,6 +25,7 @@ const sampleProducts = [
     image: Ironbg,
   },
   {
+    id: 3,
     slug: "san-pham-c",
     name: "Sản phẩm C",
     category: "gang",
@@ -28,6 +33,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 4,
     slug: "san-pham-d",
     name: "Sản phẩm D",
     category: "điện máy",
@@ -35,6 +41,7 @@ const sampleProducts = [
     image: Ironbg,
   },
   {
+    id: 5,
     slug: "san-pham-1",
     name: "Sản phẩm 1",
     category: "tôn mạ",
@@ -42,6 +49,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 6,
     slug: "san-pham-2",
     name: "Sản phẩm 2",
     category: "ống thép",
@@ -49,6 +57,7 @@ const sampleProducts = [
     image: Ironbg,
   },
   {
+    id: 7,
     slug: "san-pham-3",
     name: "Sản phẩm 3",
     category: "gang",
@@ -56,6 +65,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 8,
     slug: "san-pham-4",
     name: "Sản phẩm 4",
     category: "điện máy",
@@ -63,6 +73,7 @@ const sampleProducts = [
     image: Ironbg,
   },
   {
+    id: 9,
     slug: "san-pham-5",
     name: "Sản phẩm 5",
     category: "tôn mạ",
@@ -70,6 +81,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 10,
     slug: "san-pham-6",
     name: "Sản phẩm 6",
     category: "ống thép",
@@ -77,6 +89,7 @@ const sampleProducts = [
     image: Ironbg,
   },
   {
+    id: 11,
     slug: "san-pham-7",
     name: "Sản phẩm 7",
     category: "gang",
@@ -84,6 +97,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 12,
     slug: "san-pham-8",
     name: "Sản phẩm 8",
     category: "điện máy",
@@ -91,6 +105,7 @@ const sampleProducts = [
     image: Ironbg,
   },
   {
+    id: 13,
     slug: "san-pham-9",
     name: "Sản phẩm 9",
     category: "gang",
@@ -98,6 +113,7 @@ const sampleProducts = [
     image: bgIron,
   },
   {
+    id: 14,
     slug: "san-pham-10",
     name: "Sản phẩm 10",
     category: "điện máy",
@@ -109,13 +125,19 @@ const sampleProducts = [
 function Products({ products = sampleProducts }) {
   const [category, setCategory] = useState("all");
   const [price, setPrice] = useState("");
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [searchedProducts, setSearchedProducts] = useState([]);
   const categories = ["all", "tôn mạ", "ống thép", "gang", "điện máy"];
   const addToCart = (product) => {
     console.log("Thêm sản phẩm vào giỏ hàng:", product);
-    // Thêm logic thêm sản phẩm vào giỏ hàng ở đây
     alert("Sản phẩm đã được thêm vào giỏ hàng!");
   };
+  const router = useRouter();
+  const searchResults = router.query.searchResults
+    ? JSON.parse(router.query.searchResults)
+    : null;
 
+  const displayProducts = searchResults ? searchResults : products;
   const handleCategoryChange = (category) => {
     setCategory(category);
   };
@@ -123,11 +145,33 @@ function Products({ products = sampleProducts }) {
   const handleChangePrice = (e) => {
     setPrice(e.target.value);
   };
+
+  const handleSearch = (searchTerm) => {
+    const searched = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  
+    if (searched.length === 1) {
+      // Nếu chỉ tìm được 1 sản phẩm, điều hướng đến trang chi tiết sản phẩm
+      const slug = searched[0].slug;
+      router.push(`/product-details/${slug}`);
+    } else {
+      // Nếu tìm được nhiều hơn 1 sản phẩm, hiển thị danh sách sản phẩm
+      setSearchedProducts(searched);
+      setIsSearchModalOpen(false);
+    }
+  };
+  
+
+  const handleClose = () => {
+    setIsSearchModalOpen(false);
+  };
+
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const filterProducts = () => {
+  const filterProducts = (inputProducts) => {
     let filteredProducts = [];
-    if (products && products.length > 0) {
-      filteredProducts = products.filter((product) => {
+    if (inputProducts && inputProducts.length > 0) {
+      filteredProducts = inputProducts.filter((product) => {
         if (category === "all" || product.category === category) {
           if (price === "") {
             return true;
@@ -148,8 +192,12 @@ function Products({ products = sampleProducts }) {
   };
 
   useEffect(() => {
-    setFilteredProducts(filterProducts());
-  }, [category, price, products]);
+    if (searchedProducts.length > 0) {
+      setFilteredProducts(filterProducts(searchedProducts));
+    } else {
+      setFilteredProducts(filterProducts(products));
+    }
+  }, [category, price, products, searchedProducts]);
 
   return (
     <div className="container mx-auto p-4 md:p-10">
@@ -233,6 +281,12 @@ function Products({ products = sampleProducts }) {
           </p>
         )}
       </div>
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onRequestClose={handleClose}
+        onSubmit={handleSearch}
+        products={products}
+      />
     </div>
   );
 }

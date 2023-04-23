@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import DefaultLayout from "@/layout/DefaultLayout";
 import { useCart } from "@/components/CartContext";
 import Image from "next/image";
 
 function Pay() {
+  const [activeTab, setActiveTab] = useState("carts");
   const { cart, increaseQuantity, decreaseQuantity, removeProduct } = useCart();
+  console.log("...", cart);
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0

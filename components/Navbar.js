@@ -75,6 +75,7 @@ function Navbar(props) {
             <button>Xem Ngay !</button>
           </div>
           <div className="flex items-center ml-auto">
+
             <a href="#" className="text-orange-500 m-4">
               <button onClick={handleOpenModal}>
                 <IoSearchSharp className="w-8 h-8"></IoSearchSharp>
@@ -95,6 +96,17 @@ function Navbar(props) {
                 </span>
               </button>
             </a>
+            <div className="border border-solid border-orange-600 border-r md:border-r-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
+            <Link className="text-white  hover:text-black" href="/register">
+              {" "}
+              <button>Đăng ký</button>
+            </Link>
+          </div>
+          <div className="border border-solid border-orange-600 border-r-0 md:border-l-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 active:bg-orange-600 active:bg-opacity-80 transition duration-150">
+            <Link className="text-white  hover:text-black" href="/login">
+              <button>Đăng nhập</button>
+            </Link>
+          </div>
           </div>
         </div>
       </nav>

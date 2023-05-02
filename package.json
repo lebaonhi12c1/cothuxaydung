@@ -11,9 +11,12 @@
   "dependencies": {
     "@next/font": "13.2.4",
     "@tailwindcss/forms": "^0.5.3",
-    "axios": "^1.4.0",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
+
+
+    "animejs": "^3.2.1",
+    "aos": "^2.3.4",
+    "babel-plugin-styled-components": "^2.1.1",
+
     "connect-history-api-fallback": "^2.0.0",
     "countup.js": "^2.6.0",
     "ejs": "^3.1.9",
@@ -29,6 +32,7 @@
     "passport-local": "^1.0.0",
     "postcss-cli": "^10.1.0",
     "react": "18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-countup": "^6.4.2",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
@@ -40,6 +44,7 @@
     "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.9",
     "swiper": "^9.2.0",
     "swr": "^2.1.2",
     "tailwindcss-transforms": "^2.2.0",

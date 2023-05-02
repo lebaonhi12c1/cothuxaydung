@@ -21,7 +21,7 @@ export default function Home() {
       <Slideshow></Slideshow>
       <main className="container mx-auto">
         <div title="Prtflio" className="">
-        <Prtfolio/>
+        <Prtfolio/> 
         </div>
       </main>
       <Introduce />

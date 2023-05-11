@@ -1,5 +1,5 @@
 import DefaultLayout from "@/layout/DefaultLayout";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import bgIron from "@/image/bg_iron.jpg";
@@ -9,47 +9,53 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RelatedProducts from "@/components/ProductSlider";
 import { useCart } from "@/components/CartContext"; // Thêm dòng này
+import { userContext } from "@/context/user";
+import { cartContext } from "@/context/cart";
+//import useLocalStorage from "react-use-localstorage";
 
-const sampleProducts = [
-  {
-    slug: "san-pham-a",
-    name: "Sản phẩm A",
-    category: "tôn mạ",
-    price: 50,
-    image: bgIron,
-  },
-  {
-    slug: "san-pham-b",
-    name: "Sản phẩm B",
-    category: "ống thép",
-    price: 150,
-    image: Ironbg,
-  },
-  {
-    slug: "san-pham-c",
-    name: "Sản phẩm C",
-    category: "gang",
-    price: 550,
-    image: bgIron,
-  },
-  {
-    slug: "san-pham-d",
-    name: "Sản phẩm D",
-    category: "điện máy",
-    price: 1001,
-    image: Ironbg,
-  },
-];
+// const products = [
+//   {
+//     slug: "san-pham-a",
+//     name: "Sản phẩm A",
+//     category: "tôn mạ",
+//     price: 50,
+//     image: bgIron,
+//   },
+//   {
+//     slug: "san-pham-b",
+//     name: "Sản phẩm B",
+//     category: "ống thép",
+//     price: 150,
+//     image: Ironbg,
+//   },
+//   {
+//     slug: "san-pham-c",
+//     name: "Sản phẩm C",
+//     category: "gang",
+//     price: 550,
+//     image: bgIron,
+//   },
+//   {
+//     slug: "san-pham-d",
+//     name: "Sản phẩm D",
+//     category: "điện máy",
+//     price: 1001,
+//     image: Ironbg,
+//   },
+// ];
 
-const ProductDetails = () => {
+const ProductDetails = ({product,products}) => {
   const router = useRouter();
-  const { slug } = router.query;
-  const product = sampleProducts.find((p) => p.slug === slug);
+  //const {carts,handleAdd} = useContext(cartContext)
+  // const [carts,setCarts] = useLocalStorage('carts',[])
+  //const {handleAddProduct,carts} = useContext(cartContext)
+  //const { slug } = router.query;
+  const {user} = useContext(userContext)
+   //const product = products.find((p) => p.slug === slug);
   const [mainImage, setMainImage] = useState(product ? product.image : "");
   const [currentIndex, setCurrentIndex] = useState(0);
   const { addToCart } = useCart();
   const [showNotification, setShowNotification] = useState(false);
-
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
@@ -62,36 +68,39 @@ const ProductDetails = () => {
     }, 3000);
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % sampleProducts.length);
-    }, 3000);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
+  //   }, 3000);
 
-    return () => clearInterval(timer);
-  }, []);
+  //   return () => clearInterval(timer);
+  // }, []);
 
-  useEffect(() => {
-    setMainImage(sampleProducts[currentIndex].image);
-  }, [currentIndex]);
+  // useEffect(() => {
+  //   setMainImage(products[currentIndex].image);
+  // }, [currentIndex]);
 
   if (!product) {
     return <div>Không tìm thấy sản phẩm</div>;
   }
-
+  const handleAddCart = ()=>{
+    console.log(user)
+    user ? handleAddToCart(product) : router.push('/login')
+  }
   return (
     <DefaultLayout>
       <div className="container mx-auto p-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <Image
-              src={mainImage}
+              src={product.image}
               alt={product.name}
               width={500}
               height={500}
               className="w-full h-auto"
             />
-            <div className="flex flex-wrap justify-center mt-4 space-x-2">
-              {sampleProducts.map((p, index) => (
+            {/* <div className="flex flex-wrap justify-center mt-4 space-x-2">
+              {products.map((p, index) => (
                 <div
                   key={index}
                   className="w-16 h-16 border-2 border-gray-200 rounded-full overflow-hidden cursor-pointer"
@@ -106,7 +115,7 @@ const ProductDetails = () => {
                   />
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div>
             <div>
@@ -149,7 +158,7 @@ const ProductDetails = () => {
               </table>
               <ul>
                 <li>
-                  <strong>Danh mục:</strong> {product.category}
+                  <strong>Danh mục:</strong> {product.categoryid.name}
                 </li>
                 <li>
                   <div className="text-red-600 text-2xl">
@@ -172,7 +181,8 @@ const ProductDetails = () => {
                 {/* ... */}
                 <button
                   className="bg-blue-500 text-white py-1 px-2 rounded mt-2"
-                  onClick={() => handleAddToCart(product)}
+                  //onClick={handleAddCart}
+                  onClick={handleAddCart}
                 >
                   Thêm vào giỏ hàng
                 </button>
@@ -189,10 +199,33 @@ const ProductDetails = () => {
             </p>
           </div>
         </div>
-        <RelatedProducts products={sampleProducts}></RelatedProducts>
+        <RelatedProducts products={products}></RelatedProducts>
       </div>
     </DefaultLayout>
   );
 };
+
+export const getStaticPaths = async()=>{
+  const res = await fetch(`${process.env.SERVER_URL}/product`)
+  const products = await res.json()
+  const paths = products.map(item=>({params:{slug: item._id}}))
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export const getStaticProps = async({params})=>{
+  const res1 = await fetch(`${process.env.SERVER_URL}/product`)
+  const products = await res1.json()
+  const res = await fetch(`${process.env.SERVER_URL}/product/${params.slug}`)
+  const product = await res.json()
+  return {
+    props: {
+      products,
+      product,
+    }
+  }
+}
 
 export default ProductDetails;

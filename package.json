@@ -41,6 +41,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
+    "react-use-localstorage": "^3.5.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.9",
     "swiper": "^9.2.0",

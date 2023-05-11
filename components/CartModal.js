@@ -9,7 +9,6 @@ Modal.setAppElement("#__next");
 function CartModal({ isOpen, onRequestClose }) {
   const [activeTab, setActiveTab] = useState("carts");
   const { cart, increaseQuantity, decreaseQuantity, removeProduct } = useCart();
-  console.log("User cart:", cart);
   return (
     <Modal
       isOpen={isOpen}
@@ -41,21 +40,22 @@ function CartModal({ isOpen, onRequestClose }) {
         </div>
 
         <div className="divide-y divide-gray-200">
-          {cart.map((item, index) => (
+          {cart?.map((item, index) => (
             <div
               key={index}
               className="cart-item flex flex-wrap md:flex-nowrap justify-between items-center py-4"
             >
-              <div className="flex items-center w-full md:w-auto">
+              <div className="flex items-center w-full md:w-auto relative h-[200px]">
                 <Image
                   src={item.image}
                   alt={item.name}
                   className="w-20 h-20 object-cover rounded mr-4"
+                  fill={true}
                 />
                 <div>
                   <h3 className="text-lg font-semibold">{item.name}</h3>
                   <p className="text-gray-500">
-                    Đơn giá: {item.price.toLocaleString("vi-VN")} đồng
+                    Đơn giá: {item?.price?.toLocaleString("vi-VN")} đồng
                   </p>
                 </div>
 
@@ -78,7 +78,7 @@ function CartModal({ isOpen, onRequestClose }) {
               </div>
               <div className="text-right w-full md:w-auto md:mt-0 mt-4">
                 <span className="text-lg font-semibold">
-                  {item.quantity * item.price.toLocaleString("vi-VN")} đồng
+                  {item?.quantity * item?.price?.toLocaleString("vi-VN")} đồng
                 </span>{" "}
                 <button
                   onClick={() => removeProduct(item)}

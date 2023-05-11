@@ -6,11 +6,11 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
   function addToCart(product) {
-    const existingProduct = cart.find((p) => p.slug === product.slug);
+    const existingProduct = cart.find((p) => p._id === product._id);
 
     if (existingProduct) {
       const updatedCart = cart.map((p) => {
-        if (p.slug === product.slug) {
+        if (p._id === product._id) {
           return { ...p, quantity: p.quantity + 1 };
         }
         return p;
@@ -20,7 +20,7 @@ export function CartProvider({ children }) {
       setCart((prevState) => {
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
         const existingProductIndex = prevState.findIndex(
-          (item) => item.slug === product.slug
+          (item) => item._id === product._id
         );
     
         // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm vào giỏ hàng
@@ -53,7 +53,7 @@ export function CartProvider({ children }) {
   const increaseQuantity = (product) => {
     setCart((prevCart) => {
       const newCart = [...prevCart];
-      const index = newCart.findIndex((item) => item.slug === product.slug);
+      const index = newCart.findIndex((item) => item._id === product._id);
 
       if (index > -1) {
         newCart[index].quantity += 1;
@@ -66,7 +66,7 @@ export function CartProvider({ children }) {
   const decreaseQuantity = (product) => {
     setCart((prevCart) => {
       const newCart = [...prevCart];
-      const index = newCart.findIndex((item) => item.slug === product.slug);
+      const index = newCart.findIndex((item) => item._id === product._id);
 
       if (index > -1 && newCart[index].quantity > 1) {
         newCart[index].quantity -= 1;
@@ -78,7 +78,7 @@ export function CartProvider({ children }) {
 
   const removeProduct = (product) => {
     setCart((prevCart) => {
-      return prevCart.filter((item) => item.slug !== product.slug);
+      return prevCart.filter((item) => item._id !== product._id);
     });
   };
 

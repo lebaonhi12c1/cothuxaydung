@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IoCartSharp,
   IoPerson,
@@ -13,15 +13,17 @@ import { useCart } from "@/components/CartContext";
 import { useRouter } from "next/router";
 
 import products from "@/pages/products/index";
+import { userContext } from "@/context/user";
 
 function Navbar(props) {
+  const [hover,setHover] = useState(false)
+  const {user} = useContext(userContext)
   const [isOpen, setIsOpen] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart } = useCart();
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
   const router = useRouter();
-
   const handleSearchSubmit = (filteredProducts) => {
     if (filteredProducts.length === 1) {
       router.push(`/products/${filteredProducts[0].name}`);
@@ -32,7 +34,10 @@ function Navbar(props) {
       });
     }
   };
-
+  const handleLogout = ()=>{
+    localStorage.removeItem('user')
+    window.location.reload(true)
+  }
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -69,9 +74,8 @@ function Navbar(props) {
           </button>
         </div>
         <div
-          className={`hidden md:flex items-center text-white ml-6 md:border-l-0 ${
-            showMobileMenu ? "flex" : "hidden"
-          }`}
+          className={`hidden md:flex items-center text-white ml-6 md:border-l-0 ${showMobileMenu ? "flex" : "hidden"
+            }`}
         >
           <div className="border border-solid border-orange-600 border-r md:border-r-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
             <Link className="text-white  hover:text-black" href="/contact">
@@ -100,11 +104,20 @@ function Navbar(props) {
               </button>
             </a>
 
-            <Link href="/user" className="text-orange-500 m-4">
-              <button>
-                <IoPerson id="search-btn" className="w-8 h-8"></IoPerson>
-              </button>
-            </Link>
+            {user && (
+              <Link href="/user" className="text-orange-500 m-4 relative" onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
+                <button>
+                  <IoPerson id="search-btn" className="w-8 h-8"></IoPerson>
+                </button>
+                {hover && (
+                  <div className="w-[200px] h-fit p-4 rounded-sm absolute top-full right-0 shadow-lg shadow-slate-300 bg-white">
+                  <div className="" onClick={handleLogout}>
+                    Logout
+                  </div>
+                </div>
+                )}
+              </Link>
+            )}
 
             <a href="#" className="text-orange-500 m-4 ">
               <button onClick={handleOpenCartModal} className="flex">
@@ -117,17 +130,21 @@ function Navbar(props) {
                 </span>
               </button>
             </a>
-            <div className="border border-solid border-orange-600 border-r md:border-r-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-            <Link className="text-white  hover:text-black" href="/register">
-              {" "}
-              <button>Đăng ký</button>
-            </Link>
-          </div>
-          <div className="border border-solid border-orange-600 border-r-0 md:border-l-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 active:bg-orange-600 active:bg-opacity-80 transition duration-150">
-            <Link className="text-white  hover:text-black" href="/login">
-              <button>Đăng nhập</button>
-            </Link>
-          </div>
+            {!user && (
+              <div className="flex items-center">
+                <div className="border border-solid border-orange-600 border-r md:border-r-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 hover:text-black active:bg-orange-600 active:bg-opacity-80 transition duration-150">
+                  <Link className="text-white  hover:text-black" href="/register">
+                    {" "}
+                    <button>Đăng ký</button>
+                  </Link>
+                </div>
+                <div className="border border-solid border-orange-600 border-r-0 md:border-l-0 bg-black bg-opacity-80 p-4 text-white hover:bg-gray-300 active:bg-orange-600 active:bg-opacity-80 transition duration-150">
+                  <Link className="text-white  hover:text-black" href="/login">
+                    <button>Đăng nhập</button>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>
